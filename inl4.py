@@ -41,13 +41,16 @@ def show_result():
         
         my_file.close()
     except FileNotFoundError:
-        print("Filen finns inte, synd.")
+        my_file = open("points.json","w")
+        my_file.write(json.dumps([]))
+        my_file.close()
+        print("Filen finns inte, prova igen så ska det nog gå!")
 
 
 def add_player():
-    my_file = open("points.json", "r")
-    players = json.loads(my_file.read())
     try:
+        my_file = open("points.json", "r")
+        players = json.loads(my_file.read())
         new_player = ({
             "namn": input("Namn: "),
             "varv1": int(input("Varv 1: ")),
@@ -56,13 +59,17 @@ def add_player():
         })
         players.append(new_player)
         my_file.close()
+
+        my_file = open("points.json", "w")
+        my_file.write(json.dumps(players))
+        my_file.close()
     except ValueError:
         print("Du måste skriva in siffror i 'Varv' inputen")
-    
-
-    my_file = open("points.json", "w")
-    my_file.write(json.dumps(players))
-    my_file.close()
+    except FileNotFoundError:
+        my_file = open("points.json","w")
+        my_file.write(json.dumps([]))
+        my_file.close()
+        print("Filen hittades inte! Men prova igen så ska det nog gå bättre.")
 
 
 def remove_player():
@@ -73,7 +80,7 @@ def remove_player():
     which_player = input("Vilken spelare vill du ta bort?" ).lower()
 
     for player in players:
-        if which_player in player["namn"].lower():
+        if which_player == player["namn"].lower():
             print("{} har tagits bort!".format(player["namn"]))
             players.remove(player)
     my_file.close()
@@ -81,7 +88,5 @@ def remove_player():
     my_file = open("points.json", "w")
     my_file.write(json.dumps(players))
     my_file.close()
-
-
 
 main()  
