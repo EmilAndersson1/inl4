@@ -29,29 +29,31 @@ def print_menu():
     print("4) Avsluta")
 
 def show_result():
-    print("\nHur vill du sortera?")
-    print("1) Namn")
-    print("2) Varv 1")
-    print("3) Varv 2")
-    print("4) Varv 3")
-    print("5) Totalt")
-    print("6) Orignal")
-    
-    while True:
-        sortering_val = input("Val (1-6): ")
-        if sortering_val.isdigit():
-            if int(sortering_val) in range(1,7):
-                break
-            else:
-                print("Du måste skriva ett val mellan 1-6")
-        else:
-            print("Du måste skriva in en siffra")
     try:
+
         #öppnar filen
         my_file = open("points.json", "r")
 
         #konverterar JSON
         points = json.loads(my_file.read())
+
+        print("\nHur vill du sortera?")
+        print("1) Namn")
+        print("2) Varv 1")
+        print("3) Varv 2")
+        print("4) Varv 3")
+        print("5) Totalt")
+        print("6) Orignal")
+    
+        while True:
+            sortering_val = input("Val (1-6): ")
+            if sortering_val.isdigit():
+                if int(sortering_val) in range(1,7):
+                    break
+                else:
+                    print("Du måste skriva ett val mellan 1-6")
+            else:
+                print("Du måste skriva in en siffra")
 
         sort_by_name = sorted(points, key=lambda k: k["namn"]) 
         sort_by_varv1 = sorted(points, key=lambda k: k["varv1"])
@@ -60,27 +62,27 @@ def show_result():
         sort_by_totalen = sorted(points, key=lambda k: k["totalen"])
         
         if sortering_val == "6":
-            print("{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
+            print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
             for player in points:
                 print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
         elif sortering_val == "1":
-            print("{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
+            print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
             for player in sort_by_name:
                 print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
         elif sortering_val == "2":
-            print("{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
+            print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
             for player in sort_by_varv1:
                 print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
         elif sortering_val == "3":
-            print("{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
+            print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
             for player in sort_by_varv2:
                 print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
         elif sortering_val == "4":
-            print("{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
+            print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
             for player in sort_by_varv3:
                 print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
         elif sortering_val == "5":
-            print("{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
+            print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
             for player in sort_by_totalen:
                 print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
         
@@ -98,7 +100,7 @@ def add_player():
         my_file = open("points.json", "r")
         players = json.loads(my_file.read())
         new_player = ({
-            "namn": input("Namn: "),
+            "namn": input("\nNamn: "),
             "varv1": int(input("Varv 1: ")),
             "varv2": int(input("Varv 2: ")),
             "varv3": int(input("Varv 3: ")),
@@ -124,7 +126,7 @@ def remove_player():
     my_file = open("points.json", "r")
     players = json.loads(my_file.read())
 
-    which_player = input("Vilken spelare vill du ta bort?" ).lower()
+    which_player = input("\nVilken spelare vill du ta bort? " ).lower()
     players_removed = 0
     for player in players:
         if which_player == player["namn"].lower():
