@@ -85,9 +85,8 @@ def show_result():
             print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
             for player in sort_by_totalen:
                 print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
-        
-        
         my_file.close()
+        
     except FileNotFoundError:
         my_file = open("points.json","w")
         my_file.write(json.dumps([]))
@@ -110,7 +109,7 @@ def add_player():
         my_file.close()
 
         my_file = open("points.json", "w")
-        my_file.write(json.dumps(players))
+        my_file.write(json.dumps(players, indent = 4))
         my_file.close()
     except ValueError:
         print("Du måste skriva in siffror i 'Varv' inputen")
@@ -139,7 +138,7 @@ def remove_player():
     my_file.close()
 
     my_file = open("points.json", "w")
-    my_file.write(json.dumps(players))
+    my_file.write(json.dumps(players, indent = 4))
     my_file.close()
 
 main()  
