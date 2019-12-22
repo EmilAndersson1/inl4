@@ -33,16 +33,15 @@ def show_result():
     Skapar listor med sorterade resultat och printar dessa listor bereoende på vilken sortering användaren vill ha
     '''
     try:
-
-
         my_file = open("points.json", "r")
+
         #skapar lista med alla spelare och poäng (originalordning)
         points = json.loads(my_file.read())
 
         print("\nHur vill du sortera?")
         print("1) Namn")
         print("2) Varv 1")
-        print("3) Varv 2")
+        print("3) Varv 2")      
         print("4) Varv 3")
         print("5) Totalt")
         print("6) Orignal")
@@ -57,7 +56,7 @@ def show_result():
             else:
                 print("Du måste skriva in en siffra")
         
-        #skapar sorterade listor
+        #skapar sorterade listor på given key
         sort_by_name = sorted(points, key=lambda k: k["namn"]) 
         sort_by_varv1 = sorted(points, key=lambda k: k["varv1"])
         sort_by_varv2 = sorted(points, key=lambda k: k["varv2"])
@@ -96,13 +95,24 @@ def show_result():
         my_file.close()
         print("Filen finns inte, prova igen så ska det nog gå!")
 
+    except (json.decoder.JSONDecodeError, TypeError):
+        my_file = open("points.json","w")
+        my_file.write(json.dumps([]))
+        my_file.close()
+        print("Nu var något knasigt med strukturen i filen, prova igen")
+    #Helgarderar mig nedan :)
+    except:
+        my_file = open("points.json","w")
+        my_file.write(json.dumps([]))
+        my_file.close()
+        print("Oj! Något katastrofalt har hänt.... prova igen, funkar det inte då... då är det kört......")
 
 def add_player():
     try:
         my_file = open("points.json", "r")
         players = json.loads(my_file.read())
         new_player = ({
-            "namn": input("\nNamn: "),
+            "namn": input("\nNamn: ").capitalize(), #alla namn måste ha första bokstaven stor, annars funkar inte sortering på namn
             "varv1": int(input("Varv 1: ")),
             "varv2": int(input("Varv 2: ")),
             "varv3": int(input("Varv 3: ")),
@@ -127,19 +137,36 @@ def add_player():
         my_file.write(json.dumps([]))
         my_file.close()
         print("Filen hittades inte! Men prova igen så ska det nog gå bättre.")
+    except (json.decoder.JSONDecodeError, TypeError):
+        my_file = open("points.json","w")
+        my_file.write(json.dumps([]))
+        my_file.close()
+        print("Nu var något knasigt med strukturen i filen, prova igen")
+    #Helgarderar mig nedan :)
+    except:
+        my_file = open("points.json","w")
+        my_file.write(json.dumps([]))
+        my_file.close()
+        print("Oj! Något katastrofalt har hänt.... prova igen, funkar det inte då... då är det kört......")
 
 
 def remove_player():
+    '''
+    Tar bort spelare ur listan
+    '''
     try:
         my_file = open("points.json", "r")
         players = json.loads(my_file.read())
 
         which_player = input("\nVilken spelare vill du ta bort? " ).lower()
+        players_not_removed = []
         players_removed = 0
+        #kollar om which_player finns i spelar-listan.
         for player in players:
-            if which_player == player["namn"].lower():
+            if which_player != player["namn"].lower():
+                players_not_removed.append(player)
+            else:
                 print("{} har tagits bort!".format(player["namn"]))
-                players.remove(player)
                 players_removed += 1
         
         if players_removed == 0:
@@ -147,14 +174,24 @@ def remove_player():
         my_file.close()
 
         my_file = open("points.json", "w")
-        my_file.write(json.dumps(players, indent = 4))
+        my_file.write(json.dumps(players_not_removed, indent = 4))
         my_file.close()
 
     except FileNotFoundError:
-
         my_file = open("points.json","w")
         my_file.write(json.dumps([]))
         my_file.close()
         print("Filen hittades inte! Men prova igen så ska det nog gå bättre.")
+    except (json.decoder.JSONDecodeError, TypeError):
+        my_file = open("points.json","w")
+        my_file.write(json.dumps([]))
+        my_file.close()
+        print("Nu var något knasigt med strukturen i filen, prova igen")
+    #Helgarderar mig nedan :)
+    except:
+        my_file = open("points.json","w")
+        my_file.write(json.dumps([]))
+        my_file.close()
+        print("Oj! Något katastrofalt har hänt.... prova igen, funkar det inte då... då är det kört......")
 
 main()  

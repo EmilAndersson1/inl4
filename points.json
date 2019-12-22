@@ -1,23 +1,23 @@
 [
     {
         "namn": "Emil",
-        "varv1": 23,
-        "varv2": 21,
-        "varv3": 10,
-        "totalen": 54
+        "varv1": 1,
+        "varv2": 1,
+        "varv3": 1,
+        "totalen": 3
     },
     {
-        "namn": "Samuel",
-        "varv1": 21,
-        "varv2": 20,
-        "varv3": 19,
-        "totalen": 60
+        "namn": "Fia",
+        "varv1": 2,
+        "varv2": 3,
+        "varv3": 3,
+        "totalen": 8
     },
     {
-        "namn": "filip",
-        "varv1": 23,
-        "varv2": 21,
-        "varv3": 34,
-        "totalen": 78
+        "namn": "Filip",
+        "varv1": 32,
+        "varv2": 23,
+        "varv3": 22,
+        "totalen": 77
     }
 ]
