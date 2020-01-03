@@ -37,7 +37,7 @@ def show_result():
 
         #skapar lista med alla spelare och poäng (originalordning)
         points = json.loads(my_file.read())
-
+        
         print("\nHur vill du sortera?")
         print("1) Namn")
         print("2) Varv 1")
@@ -55,6 +55,20 @@ def show_result():
                     print("Du måste skriva ett val mellan 1-6")
             else:
                 print("Du måste skriva in en siffra")
+
+        if sortering_val != "6":
+            print("\nVill du sortera fallande eller stigande? ")
+            print("1) Fallande ")
+            print("2) Stigande ")
+            while True:
+                reverse_val = input("Val (1 eller 2): ")
+                if reverse_val.isdigit():
+                    if int(reverse_val) in range(1,3):
+                        break
+                    else:
+                        print("Du måste skriva in 1 eller 2")
+                else:
+                    print("Du måste skriva in en siffra")
         
         #skapar sorterade listor på given key
         sort_by_name = sorted(points, key=lambda k: k["namn"]) 
@@ -62,31 +76,62 @@ def show_result():
         sort_by_varv2 = sorted(points, key=lambda k: k["varv2"])
         sort_by_varv3 = sorted(points, key=lambda k: k["varv3"])
         sort_by_totalen = sorted(points, key=lambda k: k["totalen"])
-        
-        if sortering_val == "6":  
+        #skapar listor fast reversed
+        sort_by_name_reversed = sorted(points, key=lambda k: k["namn"], reverse = True) 
+        sort_by_varv1_reversed = sorted(points, key=lambda k: k["varv1"], reverse = True)
+        sort_by_varv2_reversed = sorted(points, key=lambda k: k["varv2"], reverse = True)
+        sort_by_varv3_reversed = sorted(points, key=lambda k: k["varv3"], reverse = True)
+        sort_by_totalen_reversed = sorted(points, key=lambda k: k["totalen"], reverse = True)
+
+        if sortering_val == "6":
             print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
             for player in points:
                 print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
         elif sortering_val == "1":
-            print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
-            for player in sort_by_name:
-                print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
+            if reverse_val == "2":
+                print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
+                for player in sort_by_name:
+                    print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
+            else:
+                print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
+                for player in sort_by_name_reversed:
+                    print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
         elif sortering_val == "2":
-            print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
-            for player in sort_by_varv1:
-                print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
+            if reverse_val == "2":
+                print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
+                for player in sort_by_varv1:
+                    print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
+            else:
+                print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
+                for player in sort_by_varv1_reversed:
+                    print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
         elif sortering_val == "3":
-            print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
-            for player in sort_by_varv2:
-                print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
+            if reverse_val == "2":
+                print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
+                for player in sort_by_varv2:
+                    print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
+            else:
+                print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
+                for player in sort_by_varv2_reversed:
+                    print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
         elif sortering_val == "4":
-            print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
-            for player in sort_by_varv3:
-                print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
+            if reverse_val == "2":
+                print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
+                for player in sort_by_varv3:
+                    print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
+            else:
+                print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
+                for player in sort_by_varv3_reversed:
+                    print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
         elif sortering_val == "5":
-            print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
-            for player in sort_by_totalen:
-                print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
+            if reverse_val == "2":
+                print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
+                for player in sort_by_totalen:
+                    print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
+            else:
+                print("\n{:<8} {:<8} {:<8} {:<8} {:<8} {:<8}".format("Namn", "Varv 1", "Varv 2", "Varv 3", "Totalt", "Genomsnitt"))
+                for player in sort_by_totalen_reversed:
+                    print("{:<8} {:<8} {:<8} {:<8} {:<8} {:.1f}".format(player["namn"], player["varv1"], player["varv2"], player["varv3"], player["totalen"], (player["varv1"] + player["varv2"] + player["varv3"])/3 ))
         my_file.close()
 
     except FileNotFoundError:
